@@ -2,8 +2,13 @@ const Dispatcher = require('./dispatcher');
 const EventEmitter = require('events').EventEmitter;
 const Const = require('./const');
 const assign = require('object-assign');
+const storage = require('electron-json-storage');
 
-var _todos=[{id:'1',text:'hoge'}];
+const fs = require("fs")
+
+const DATA_FILE='./datafile.json';
+
+var _todos=JSON.parse(fs.readFileSync(DATA_FILE).toString())
 
 function _createTodo(text){
   // action側でそのままstateに入れるので、idが必要。
@@ -19,6 +24,7 @@ function _createTodo(text){
 var TodoStore = assign({}, EventEmitter.prototype,{
   // これ、ここでいいのかなぁ。。。
   emitChange: function(){
+    fs.writeFileSync(DATA_FILE,JSON.stringify(_todos));
     this.emit("change")
   },
   onChange(callback){
@@ -34,7 +40,7 @@ Dispatcher.register(function(action){
   switch (action.actionType) {
     case Const.ADD_TODO:
       var val = action.text;
-      _createTodo(val)
+      _createTodo(val);
       TodoStore.emitChange();
       break;
     default:
