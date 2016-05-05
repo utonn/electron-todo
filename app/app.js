@@ -6,7 +6,6 @@ const CategoryStore = require("./categoryStore")
 const Action = require("./action");
 
 (function(){
-  var ENTER_KEY = 13;
 
   module.exports = class App extends React.Component {
 

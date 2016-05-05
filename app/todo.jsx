@@ -58,11 +58,12 @@ const Action = require("./action");
     }
 
     render() {
-      var todos = this.state.todos.filter(function(v){
-        if(!this.props.category) return true;
-        return this.props.category == v.category;
-      },this)
+      var todos = this.state.todos
       .map(function(v,i){
+        // カテゴリが選択されている場合は、選択カテゴリに一致するもののみ出す
+        if(this.props.category && this.props.category != v.category){
+           return '';
+         }
         // keyだとTodoItem側で拾えない…？
         return (<TodoItem key={v.id} id={v.id} index={i} val={v.text}
           onReorder={this.onReorder.bind(this)}
