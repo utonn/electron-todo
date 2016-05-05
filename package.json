@@ -1,0 +1,19 @@
+{
+  "name": "sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-plugin-transform-react-jsx": "^6.7.5",
+    "babel-register": "^6.7.2",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1",
+    "flux":"^2.1.1"
+  }
+}
