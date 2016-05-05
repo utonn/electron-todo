@@ -16,6 +16,7 @@ const React = require("react");
       this.props.onRemove(this.props.id);
     }
 
+    // この辺の処理、どこまでをオーナーに移譲するべきか。
     handleOrderKeyDown (event) {
       if (event.keyCode !== ENTER_KEY) {
         return;
@@ -44,7 +45,7 @@ const React = require("react");
             {this.props.val}
           </div>
           <div
-            className="delete-btn bg-danger"
+            className="delete-btn"
             onClick={this.handleRemoveBtn.bind(this)}>
             <span className='glyphicon glyphicon-remove'></span>
           </div>
