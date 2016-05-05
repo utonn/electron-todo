@@ -45,6 +45,8 @@ const Action = require("./action");
 
       // storeは直接呼ばないで、actionを呼ぶ
       Action.addTodo(val);
+
+      this.state.newTodo='';
     }
 
     render() {
