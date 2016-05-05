@@ -12,14 +12,13 @@ var _todos = [];
   _todos = JSON.parse(fs.readFileSync(DATA_FILE).toString() || '[]')
 })();
 
-
-
-function _createTodo(text){
+function _createTodo(text,category){
   // action側でそのままstateに入れるので、idが必要。
   var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
   _todos.push({
     id:id,
-    text: text
+    text: text,
+    category:category
   });
 }
 
@@ -61,8 +60,7 @@ var TodoStore = assign({}, EventEmitter.prototype,{
 Dispatcher.register(function(action){
   switch (action.actionType) {
     case Const.ADD_TODO:
-      var val = action.text;
-      _createTodo(val);
+      _createTodo(action.text, action.category);
       TodoStore.emitChange();
       break;
     case Const.REMOVE_TODO:

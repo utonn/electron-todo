@@ -44,7 +44,7 @@ const Action = require("./action");
       var val = this.state.newTodo.trim();
 
       // storeは直接呼ばないで、actionを呼ぶ
-      Action.addTodo(val);
+      Action.addTodo(val,this.props.category);
 
       this.state.newTodo='';
     }

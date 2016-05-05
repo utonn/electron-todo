@@ -4,10 +4,11 @@ const Dispatcher = require('./dispatcher');
 const Const = require('./const');
 
 var Action = {
-  addTodo(data){
+  addTodo(data,category){
     Dispatcher.dispatch({
       actionType: Const.ADD_TODO,
-      text: data
+      text: data,
+      category:category
     })
   },
   removeTodo(id){
