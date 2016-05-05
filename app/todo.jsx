@@ -49,15 +49,6 @@ const Action = require("./action");
       this.state.newTodo='';
     }
 
-    onOrderChange(id, newOrder){
-      this.setState({todos:this.state.todos.map(function(v){
-        if(v.id == id){
-          v.newOrder = newOrder;
-        }
-        return v;
-      })});
-    }
-
     onReorder(id,newOrder){
       Action.reorderTodo(id,newOrder);
     }
@@ -73,8 +64,7 @@ const Action = require("./action");
       },this)
       .map(function(v,i){
         // keyだとTodoItem側で拾えない…？
-        return (<TodoItem key={v.id} id={v.id} index={v.newOrder} val={v.text}
-          onOrderChange={this.onOrderChange.bind(this)}
+        return (<TodoItem key={v.id} id={v.id} index={i} val={v.text}
           onReorder={this.onReorder.bind(this)}
           onRemove={this.onRemove.bind(this)}
           />
@@ -89,7 +79,7 @@ const Action = require("./action");
             <header className="header panel-heading">
               <input
                 className="new-todo"
-                placeholder="What needs to be done?"
+                placeholder="new todo"
                 value={this.state.newTodo}
                 onKeyDown={this.handleNewTodoKeyDown.bind(this)}
                 onChange={this.handleChange.bind(this)}
@@ -106,10 +96,7 @@ const Action = require("./action");
     }
 
     _loadAllTodo(){
-      return todoStore.getAll().map(function(v,i){
-        v.newOrder = i;
-        return v;
-      })
+      return todoStore.getAll();
     }
 
     _refreshAllTodo(){

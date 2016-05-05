@@ -10,6 +10,16 @@ const React = require("react");
 
     constructor (prop) {
       super(prop)
+      this.state = {
+        newOrder: prop.index
+      }
+    }
+
+    // 親からのpropsに変化があった時だけ呼ばれる。
+    componentWillReceiveProps(nextProp){
+      this.setState({
+        newOrder: nextProp.index
+      })
     }
 
     handleRemoveBtn(event){
@@ -29,7 +39,7 @@ const React = require("react");
     }
 
     handleChange(event){
-      this.props.onOrderChange(this.props.id,event.target.value);
+      this.setState({newOrder: event.target.value});
     }
 
     render() {
@@ -37,7 +47,7 @@ const React = require("react");
         <li className="list-group-item bs-callout bs-callout-warning">
           <div className="todo-order">
             <input type="text"
-              value={this.props.index}
+              value={this.state.newOrder}
               onKeyDown={this.handleOrderKeyDown.bind(this)}
               onChange={this.handleChange.bind(this)}
               tabIndex={this.props.index+1}
