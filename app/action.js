@@ -9,6 +9,12 @@ var Action = {
       actionType: Const.ADD_TODO,
       text: data
     })
+  },
+  removeTodo(id){
+    Dispatcher.dispatch({
+      actionType: Const.REMOVE_TODO,
+      id:id
+    })
   }
 }
 

@@ -19,6 +19,11 @@ function _createTodo(text){
   });
 }
 
+function _removeTodo(id){
+  if(!id) return;
+  _todos = _todos.filter(function(v){ return v.id != id });
+}
+
 // actionから利用するメソッドを定義
 // リスナの登録とデータの取得だけ、なはず。
 var TodoStore = assign({}, EventEmitter.prototype,{
@@ -41,6 +46,11 @@ Dispatcher.register(function(action){
     case Const.ADD_TODO:
       var val = action.text;
       _createTodo(val);
+      TodoStore.emitChange();
+      break;
+    case Const.REMOVE_TODO:
+      var id = action.id;
+      _removeTodo(id);
       TodoStore.emitChange();
       break;
     default:

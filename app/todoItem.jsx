@@ -1,5 +1,7 @@
 "use strict";
 
+const Action = require("./action");
+
 const React = require("react");
 (function(){
 // module.exportsすることで、require('./todo')的な感じで外部から拾えるようになる
@@ -15,6 +17,10 @@ const React = require("react");
       }
     }
 
+    removeTodo(event){
+      Action.removeTodo(this.props.id);
+    }
+
     render() {
       // return内は1タグで纏めないとダメ
       // 構文的にreturnと同じ行から書き始めるなら()は不要っぽい
@@ -24,7 +30,9 @@ const React = require("react");
           <div className="col-sm-8">
             {this.props.val}
           </div>
-          <div className="col-sm-4 delete-btn bg-warning">
+          <div
+            className="col-sm-4 delete-btn bg-warning"
+            onClick={this.removeTodo.bind(this)}>
             ×
           </div>
         </li>

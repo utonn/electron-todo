@@ -49,7 +49,8 @@ const Action = require("./action");
 
     render() {
       var todos = this.state.todos.map(function(val){
-        return <TodoItem key={val.id} val={val.text}/>;
+        // keyだとTodoItem側で拾えない…？
+        return <TodoItem key={val.id} id={val.id} val={val.text}/>;
       })
       var footer = '';
       // return内は1タグで纏めないとダメ
