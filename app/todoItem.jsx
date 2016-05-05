@@ -39,7 +39,9 @@ const React = require("react");
             <input type="text"
               value={this.props.index}
               onKeyDown={this.handleOrderKeyDown.bind(this)}
-              onChange={this.handleChange.bind(this)}></input>
+              onChange={this.handleChange.bind(this)}
+              tabIndex={this.props.index+1}
+              ></input>
           </div>
           <div className="">
             {this.props.val}

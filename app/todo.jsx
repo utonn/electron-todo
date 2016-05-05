@@ -94,6 +94,7 @@ const Action = require("./action");
                 onKeyDown={this.handleNewTodoKeyDown.bind(this)}
                 onChange={this.handleChange.bind(this)}
                 autoFocus={true}
+                tabIndex='0'
               />
             </header>
             <ul className="todo-list list-group">
