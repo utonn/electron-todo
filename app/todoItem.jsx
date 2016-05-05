@@ -28,6 +28,10 @@ const React = require("react");
 
     // この辺の処理、どこまでをオーナーに移譲するべきか。
     handleOrderKeyDown (event) {
+      if (event.shiftKey && event.keyCode === 8){
+        this.props.onRemove(this.props.id);
+        return;
+      }
       if (event.keyCode !== ENTER_KEY) {
         return;
       }
