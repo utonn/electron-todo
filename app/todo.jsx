@@ -50,9 +50,9 @@ const Action = require("./action");
     }
 
     render() {
-      var todos = this.state.todos.map(function(val){
+      var todos = this.state.todos.map(function(val,i){
         // keyだとTodoItem側で拾えない…？
-        return <TodoItem key={val.id} id={val.id} val={val.text}/>;
+        return <TodoItem key={val.id} id={val.id} index={i} val={val.text}/>;
       })
       var footer = '';
       // return内は1タグで纏めないとダメ
@@ -71,7 +71,7 @@ const Action = require("./action");
               autoFocus={true}
             />
           </header>
-          <ul className="todo-list list-group container">
+          <ul className="todo-list list-group">
             {todos}
           </ul>
           {footer}

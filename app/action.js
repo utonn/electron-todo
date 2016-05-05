@@ -15,6 +15,13 @@ var Action = {
       actionType: Const.REMOVE_TODO,
       id:id
     })
+  },
+  reorderTodo(id, newOrder){
+    Dispatcher.dispatch({
+      actionType: Const.REORDER_TODO,
+      id:id,
+      newOrder:newOrder
+    })
   }
 }
 

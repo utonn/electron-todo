@@ -8,7 +8,12 @@ const fs = require("fs")
 
 const DATA_FILE='./datafile.json';
 
-var _todos=JSON.parse(fs.readFileSync(DATA_FILE).toString())
+var _todos = [];
+(function(){
+  _todos = JSON.parse(fs.readFileSync(DATA_FILE).toString() || '[]')
+})();
+
+
 
 function _createTodo(text){
   // action側でそのままstateに入れるので、idが必要。
@@ -22,6 +27,19 @@ function _createTodo(text){
 function _removeTodo(id){
   if(!id) return;
   _todos = _todos.filter(function(v){ return v.id != id });
+}
+
+function _reorder(id,newOrder){
+  var target;
+  var newTodos = _todos.filter(function(v){
+    if(v.id == id) {
+      target = v;
+      return false;
+    }
+    return true;
+  });
+  newTodos.splice(newOrder,0,target);
+  _todos = newTodos;
 }
 
 // actionから利用するメソッドを定義
@@ -53,6 +71,9 @@ Dispatcher.register(function(action){
       _removeTodo(id);
       TodoStore.emitChange();
       break;
+    case Const.REORDER_TODO:
+      _reorder(action.id,action.newOrder);
+      TodoStore.emitChange();
     default:
   }
 });

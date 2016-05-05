@@ -1,0 +1,14 @@
+.delete-btn{
+  text-align: center;
+  cursor: pointer;
+}
+ul.todo-list li:nth-child(even){
+  background-color: #EEE
+}
+ul.todo-list li div{
+  display: inline-block;
+}
+ul.todo-list .delete-btn{
+  width:30px;
+  float: right;
+}

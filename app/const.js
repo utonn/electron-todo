@@ -4,5 +4,6 @@ var keyMirror = require('fbjs/lib/keyMirror');
 // store→component感も同じようにしちゃダメなんだろうか・・・　
 module.exports = keyMirror({
   ADD_TODO:null,
-  REMOVE_TODO:null
+  REMOVE_TODO:null,
+  REORDER_TODO:null
 })

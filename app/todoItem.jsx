@@ -14,6 +14,7 @@ const React = require("react");
     constructor (prop) {
       super(prop)
       this.state = {
+        newOrder: prop.index
       }
     }
 
@@ -21,19 +22,37 @@ const React = require("react");
       Action.removeTodo(this.props.id);
     }
 
+    handleOrderKeyDown (event) {
+      if (event.keyCode !== ENTER_KEY) {
+        return;
+      }
+      event.preventDefault();
+
+      var val = this.state.newOrder.trim();
+
+      Action.reorderTodo(this.props.id,this.state.newOrder);
+    }
+
+    handleChange(event){
+      this.setState({newOrder: event.target.value});
+    }
+
     render() {
-      // return内は1タグで纏めないとダメ
-      // 構文的にreturnと同じ行から書き始めるなら()は不要っぽい
-      // けど、複数行にまたがるときにインデントが微妙になるので、基本カッコアリかな。
       return (
-        <li className="list-group-item row">
-          <div className="col-sm-8">
+        <li className="list-group-item bs-callout bs-callout-warning">
+          <div className="todo-order">
+            <input type="text"
+              value={this.state.newOrder}
+              onKeyDown={this.handleOrderKeyDown.bind(this)}
+              onChange={this.handleChange.bind(this)}></input>
+          </div>
+          <div className="">
             {this.props.val}
           </div>
           <div
-            className="col-sm-4 delete-btn bg-warning"
+            className="delete-btn bg-danger"
             onClick={this.removeTodo.bind(this)}>
-            ×
+            <span className='glyphicon glyphicon-remove'></span>
           </div>
         </li>
         );
