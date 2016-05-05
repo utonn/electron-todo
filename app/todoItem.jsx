@@ -1,25 +1,19 @@
 "use strict";
 
-const Action = require("./action");
-
 const React = require("react");
 (function(){
-// module.exportsすることで、require('./todo')的な感じで外部から拾えるようになる
-// class hoge extends ... って書き方はES6っぽい。それ以前はReact.createClassっていうの使わなきゃだったとか
-// http://blog.koba04.com/post/2015/01/28/published-react-v0.13.0-beta1/
   var ENTER_KEY = 13;
 
+  // 基本的にはここではActionを呼ばないし、stateを持たない
+  // オーナーにすべて委譲し、オーナーから与えられるpropを元に表示するのみ。
   module.exports = class TodoItem extends React.Component {
 
     constructor (prop) {
       super(prop)
-      this.state = {
-        newOrder: prop.index
-      }
     }
 
-    removeTodo(event){
-      Action.removeTodo(this.props.id);
+    handleRemoveBtn(event){
+      this.props.onRemove(this.props.id);
     }
 
     handleOrderKeyDown (event) {
@@ -28,13 +22,13 @@ const React = require("react");
       }
       event.preventDefault();
 
-      var val = this.state.newOrder.trim();
+      var val = event.target.value.trim();
 
-      Action.reorderTodo(this.props.id,this.state.newOrder);
+      this.props.onReorder(this.props.id,val);
     }
 
     handleChange(event){
-      this.setState({newOrder: event.target.value});
+      this.props.onOrderChange(this.props.id,event.target.value);
     }
 
     render() {
@@ -42,7 +36,7 @@ const React = require("react");
         <li className="list-group-item bs-callout bs-callout-warning">
           <div className="todo-order">
             <input type="text"
-              value={this.state.newOrder}
+              value={this.props.index}
               onKeyDown={this.handleOrderKeyDown.bind(this)}
               onChange={this.handleChange.bind(this)}></input>
           </div>
@@ -51,7 +45,7 @@ const React = require("react");
           </div>
           <div
             className="delete-btn bg-danger"
-            onClick={this.removeTodo.bind(this)}>
+            onClick={this.handleRemoveBtn.bind(this)}>
             <span className='glyphicon glyphicon-remove'></span>
           </div>
         </li>

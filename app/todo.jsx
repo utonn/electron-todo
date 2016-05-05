@@ -17,7 +17,7 @@ const Action = require("./action");
       super(prop)
       this.state = {
         newTodo: '',
-        todos: todoStore.getAll()
+        todos: this._loadAllTodo()
       }
     }
 
@@ -49,38 +49,71 @@ const Action = require("./action");
       this.state.newTodo='';
     }
 
+    onOrderChange(id, newOrder){
+      this.setState({todos:this.state.todos.map(function(v){
+        if(v.id == id){
+          v.newOrder = newOrder;
+        }
+        return v;
+      })});
+    }
+
+    onReorder(id,newOrder){
+      Action.reorderTodo(id,newOrder);
+    }
+
+    onRemove(id){
+      Action.removeTodo(id);
+    }
+
     render() {
-      var todos = this.state.todos.map(function(val,i){
+      var todos = this.state.todos.filter(function(v){
+        if(!this.props.category) return true;
+        return this.props.category == v.category;
+      },this)
+      .map(function(v,i){
         // keyだとTodoItem側で拾えない…？
-        return <TodoItem key={val.id} id={val.id} index={i} val={val.text}/>;
-      })
+        return (<TodoItem key={v.id} id={v.id} index={v.newOrder} val={v.text}
+          onOrderChange={this.onOrderChange.bind(this)}
+          onReorder={this.onReorder.bind(this)}
+          onRemove={this.onRemove.bind(this)}
+          />
+        );
+      },this)
       var footer = '';
       // return内は1タグで纏めないとダメ
       // 構文的にreturnと同じ行から書き始めるなら()は不要っぽい
       // けど、複数行にまたがるときにインデントが微妙になるので、基本カッコアリかな。
       return (
-        <div className="panel panel-default">
-          <h1>todos</h1>
-          <header className="header panel-heading">
-            <input
-              className="new-todo"
-              placeholder="What needs to be done?"
-              value={this.state.newTodo}
-              onKeyDown={this.handleNewTodoKeyDown.bind(this)}
-              onChange={this.handleChange.bind(this)}
-              autoFocus={true}
-            />
-          </header>
-          <ul className="todo-list list-group">
-            {todos}
-          </ul>
-          {footer}
-        </div>
+          <div className="panel panel-default">
+            <header className="header panel-heading">
+              <input
+                className="new-todo"
+                placeholder="What needs to be done?"
+                value={this.state.newTodo}
+                onKeyDown={this.handleNewTodoKeyDown.bind(this)}
+                onChange={this.handleChange.bind(this)}
+                autoFocus={true}
+              />
+            </header>
+            <ul className="todo-list list-group">
+              {todos}
+            </ul>
+            {footer}
+          </div>
         );
     }
+
+    _loadAllTodo(){
+      return todoStore.getAll().map(function(v,i){
+        v.newOrder = i;
+        return v;
+      })
+    }
+
     _refreshAllTodo(){
       this.setState({
-        todos:todoStore.getAll()
+        todos:this._loadAllTodo()
       });
     }
   }
