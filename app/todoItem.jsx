@@ -11,14 +11,16 @@ const React = require("react");
     constructor (prop) {
       super(prop)
       this.state = {
-        newOrder: prop.index
+        newOrder: prop.index,
+        isDone: prop.isDone ? prop.isDone : false
       }
     }
 
     // 親からのpropsに変化があった時だけ呼ばれる。
     componentWillReceiveProps(nextProp){
       this.setState({
-        newOrder: nextProp.index
+        newOrder: nextProp.index,
+        isDone: nextProp.isDone
       })
     }
 
@@ -46,10 +48,19 @@ const React = require("react");
       this.setState({newOrder: event.target.value});
     }
 
+    handleDone(event){
+      // this.setState({isDone: !this.state.isDone})
+      this.props.onChange(this.props.id, {isDone: !this.state.isDone})
+    }
+
     render() {
       return (
         <li className="list-group-item bs-callout bs-callout-warning">
           <div className="todo-order">
+            <input type="checkbox"
+              checked={this.state.isDone}
+              onChange={this.handleDone.bind(this)}
+            ></input>
             <input type="text"
               value={this.state.newOrder}
               onKeyDown={this.handleOrderKeyDown.bind(this)}

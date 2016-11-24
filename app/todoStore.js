@@ -40,6 +40,15 @@ function _reorder(id,newOrder){
   _todos = newTodos;
 }
 
+function _change(id, todo){
+  if(!id) return;
+  _todos.map(function(e){
+    if(e.id == id){
+      e.isDone = todo.isDone
+    }
+  });
+}
+
 // actionから利用するメソッドを定義
 // リスナの登録とデータの取得だけ、なはず。
 var TodoStore = assign({}, EventEmitter.prototype,{
@@ -70,6 +79,9 @@ Dispatcher.register(function(action){
       break;
     case Const.REORDER_TODO:
       _reorder(action.id,action.newOrder);
+      TodoStore.emitChange();
+    case Const.CHANGE_TODO:
+      _change(action.id, action.todo);
       TodoStore.emitChange();
     default:
   }

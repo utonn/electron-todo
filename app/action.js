@@ -23,6 +23,13 @@ var Action = {
       id:id,
       newOrder:newOrder
     })
+  },
+  changeTodo(id, todo){
+    Dispatcher.dispatch({
+      actionType: Const.CHANGE_TODO,
+      id:id,
+      todo:todo
+    })
   }
 }
 

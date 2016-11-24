@@ -5,5 +5,6 @@ var keyMirror = require('fbjs/lib/keyMirror');
 module.exports = keyMirror({
   ADD_TODO:null,
   REMOVE_TODO:null,
-  REORDER_TODO:null
+  REORDER_TODO:null,
+  CHANGE_TODO:null
 })

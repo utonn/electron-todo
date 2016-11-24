@@ -57,6 +57,10 @@ const Action = require("./action");
       Action.removeTodo(id);
     }
 
+    onChange(id, todo){
+      Action.changeTodo(id, todo);
+    }
+
     render() {
       var todos = this.state.todos
       .map(function(v,i){
@@ -65,9 +69,10 @@ const Action = require("./action");
            return '';
          }
         // keyだとTodoItem側で拾えない…？
-        return (<TodoItem key={v.id} id={v.id} index={i} val={v.text}
+        return (<TodoItem key={v.id} id={v.id} index={i} val={v.text} isDone={v.isDone}
           onReorder={this.onReorder.bind(this)}
           onRemove={this.onRemove.bind(this)}
+          onChange={this.onChange.bind(this)}
           />
         );
       },this)
