@@ -18,3 +18,7 @@ ul.todo-list .delete-btn{
   width:30px;
   float: right;
 }
+
+ul.todo-list li.dragOver {
+  border-top: solid red 5px;
+}

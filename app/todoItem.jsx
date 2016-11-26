@@ -12,7 +12,8 @@ const React = require("react");
       super(prop)
       this.state = {
         newOrder: prop.index,
-        isDone: prop.isDone ? prop.isDone : false
+        isDone: prop.isDone ? prop.isDone : false,
+        dragOver: false
       }
     }
 
@@ -49,13 +50,40 @@ const React = require("react");
     }
 
     handleDone(event){
-      // this.setState({isDone: !this.state.isDone})
       this.props.onChange(this.props.id, {isDone: !this.state.isDone})
     }
 
+    handleDragStart(event){
+      event.dataTransfer.setData("String", this.props.id);
+    }
+    handleDragEnter(event){
+      this.setState({dragOver: true});
+      // drop操作の許可。
+      event.preventDefault();
+    }
+    handleDragOver(event){
+      this.setState({dragOver: true});
+      // drop操作の許可。
+      event.preventDefault();
+    }
+    handleDragLeave(event){
+      this.setState({dragOver: false});
+    }
+    handleDrop(event){
+      this.props.onReorder(event.dataTransfer.getData("String"),this.props.index);
+      this.setState({dragOver: false});
+    }
     render() {
+      var dragOver = this.state.dragOver ? " dragOver" : "";
+      var li_class = "list-group-item bs-callout bs-callout-warning" + dragOver;
       return (
-        <li className="list-group-item bs-callout bs-callout-warning">
+        <li className={li_class} draggable="true"
+          onDragStart={this.handleDragStart.bind(this)}
+          onDragEnter={this.handleDragEnter.bind(this)}
+          onDragOver={this.handleDragOver.bind(this)}
+          onDragLeave={this.handleDragLeave.bind(this)}
+          onDrop={this.handleDrop.bind(this)}
+          >
           <div className="todo-order">
             <input type="checkbox"
               checked={this.state.isDone}

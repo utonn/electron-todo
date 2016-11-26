@@ -80,9 +80,11 @@ Dispatcher.register(function(action){
     case Const.REORDER_TODO:
       _reorder(action.id,action.newOrder);
       TodoStore.emitChange();
+      break;
     case Const.CHANGE_TODO:
       _change(action.id, action.todo);
       TodoStore.emitChange();
+      break;
     default:
   }
 });
