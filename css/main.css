@@ -8,11 +8,14 @@ ul.todo-list li:nth-child(even){
 ul.todo-list li div{
   display: inline-block;
 }
-ul.todo-list li input{
+ul.todo-list li .todo-order input{
   height: 20px;
   width: 30px;
   text-align: center;
   margin-right: 10px;
+}
+ul.todo-list li .todo-text input{
+  width: 100%;
 }
 ul.todo-list .delete-btn{
   width:30px;

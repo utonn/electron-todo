@@ -44,7 +44,8 @@ function _change(id, todo){
   if(!id) return;
   _todos.map(function(e){
     if(e.id == id){
-      e.isDone = todo.isDone
+      if('isDone' in todo) e.isDone = todo.isDone
+      if('text' in todo) e.text = todo.text
     }
   });
 }

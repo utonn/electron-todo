@@ -13,6 +13,7 @@ const React = require("react");
       this.state = {
         newOrder: prop.index,
         isDone: prop.isDone ? prop.isDone : false,
+        newText: prop.val,
         dragOver: false
       }
     }
@@ -48,11 +49,24 @@ const React = require("react");
     handleChange(event){
       this.setState({newOrder: event.target.value});
     }
-
     handleDone(event){
       this.props.onChange(this.props.id, {isDone: !this.state.isDone})
     }
 
+    // ----- Text ------
+    handleTextChange(event){
+      this.setState({newText: event.target.value});
+    }
+    handleTextKeyDown(event){
+      if (event.keyCode !== ENTER_KEY) {
+        return;
+      }
+      event.preventDefault();
+      var val = event.target.value.trim();
+      this.props.onChange(this.props.id, {text: this.state.newText});
+    }
+
+    // ----- DnD -------
     handleDragStart(event){
       event.dataTransfer.setData("String", this.props.id);
     }
@@ -96,8 +110,13 @@ const React = require("react");
               tabIndex={this.props.index+1}
               ></input>
           </div>
-          <div className="">
-            {this.props.val}
+          <div className="todo-text">
+            <label>{this.props.val}</label>
+            <input type="text"
+              value={this.state.newText}
+              onKeyDown={this.handleTextKeyDown.bind(this)}
+              onChange={this.handleTextChange.bind(this)}
+              ></input>
           </div>
           <div
             className="delete-btn"
