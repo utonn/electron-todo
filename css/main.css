@@ -14,8 +14,26 @@ ul.todo-list li .todo-order input{
   text-align: center;
   margin-right: 10px;
 }
+ul.todo-list li .todo-order{
+  min-width: 80px;
+  width: 10%;
+}
+ul.todo-list li .todo-text{
+  width: 70%;
+}
+
 ul.todo-list li .todo-text input{
   width: 100%;
+  display: none;
+}
+ul.todo-list li .todo-text.editing input{
+  display: inline-block;
+}
+ul.todo-list li .todo-text label{
+  display: inline;
+}
+ul.todo-list li .todo-text.editing label{
+  display: none;
 }
 ul.todo-list .delete-btn{
   width:30px;

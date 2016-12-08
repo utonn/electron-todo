@@ -14,7 +14,8 @@ const React = require("react");
         newOrder: prop.index,
         isDone: prop.isDone ? prop.isDone : false,
         newText: prop.val,
-        dragOver: false
+        dragOver: false,
+        editing: false
       }
     }
 
@@ -64,6 +65,7 @@ const React = require("react");
       event.preventDefault();
       var val = event.target.value.trim();
       this.props.onChange(this.props.id, {text: this.state.newText});
+      this.setState({editing: false});
     }
 
     // ----- DnD -------
@@ -87,9 +89,14 @@ const React = require("react");
       this.props.onReorder(event.dataTransfer.getData("String"),this.props.index);
       this.setState({dragOver: false});
     }
+
+    handleTextClick(event){
+      this.setState({editing: true});
+    }
     render() {
       var dragOver = this.state.dragOver ? " dragOver" : "";
       var li_class = "list-group-item bs-callout bs-callout-warning" + dragOver;
+      var text_class = "todo-text" + (this.state.editing ? " editing" : "");
       return (
         <li className={li_class} draggable="true"
           onDragStart={this.handleDragStart.bind(this)}
@@ -110,7 +117,7 @@ const React = require("react");
               tabIndex={this.props.index+1}
               ></input>
           </div>
-          <div className="todo-text">
+          <div className={text_class} onClick={this.handleTextClick.bind(this)}>
             <label>{this.props.val}</label>
             <input type="text"
               value={this.state.newText}
