@@ -1,45 +1,51 @@
-.delete-btn{
-  text-align: center;
-  cursor: pointer;
+ul.todo-list li:nth-child(even) {
+  background-color: #EEE;
 }
-ul.todo-list li:nth-child(even){
-  background-color: #EEE
+
+ul.todo-list li.dragOver {
+  border-top: solid red 5px;
 }
-ul.todo-list li div{
+
+ul.todo-list li div {
   display: inline-block;
 }
-ul.todo-list li .todo-order input{
+
+ul.todo-list li .todo-order {
+  min-width: 80px;
+  width: 10%;
+}
+
+ul.todo-list li .todo-order input {
   height: 20px;
   width: 30px;
   text-align: center;
   margin-right: 10px;
 }
-ul.todo-list li .todo-order{
-  min-width: 80px;
-  width: 10%;
-}
-ul.todo-list li .todo-text{
+
+ul.todo-list li .todo-text {
   width: 70%;
 }
 
-ul.todo-list li .todo-text input{
+ul.todo-list li .todo-text input {
   width: 100%;
   display: none;
 }
-ul.todo-list li .todo-text.editing input{
+
+ul.todo-list li .todo-text.editing input {
   display: inline-block;
 }
-ul.todo-list li .todo-text label{
+
+ul.todo-list li .todo-text label {
   display: inline;
 }
-ul.todo-list li .todo-text.editing label{
+
+ul.todo-list li .todo-text.editing label {
   display: none;
 }
-ul.todo-list .delete-btn{
-  width:30px;
-  float: right;
-}
 
-ul.todo-list li.dragOver {
-  border-top: solid red 5px;
+ul.todo-list li .delete-btn {
+  width: 30px;
+  float: right;
+  text-align: center;
+  cursor: pointer;
 }

@@ -1,0 +1,43 @@
+ul.todo-list li{
+  &:nth-child(even){
+    background-color: #EEE
+  }
+  &.dragOver {
+    border-top: solid red 5px;
+  }
+  div{
+    display: inline-block;
+  }
+  .todo-order{
+    min-width: 80px;
+    width: 10%;
+    input{
+      height: 20px;
+      width: 30px;
+      text-align: center;
+      margin-right: 10px;
+    }
+  }
+  .todo-text{
+    width: 70%;
+    input{
+      width: 100%;
+      display: none;
+    }
+    &.editing input{
+      display: inline-block;
+    }
+    label{
+      display: inline;
+    }
+    &.editing label{
+      display: none;
+    }
+  }
+  .delete-btn{
+    width:30px;
+    float: right;
+    text-align: center;
+    cursor: pointer;
+  }
+}
