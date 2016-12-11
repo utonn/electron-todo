@@ -1,9 +1,22 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 ul.todo-list li:nth-child(even) {
   background-color: #EEE;
 }
 
 ul.todo-list li.dragOver {
   border-top: solid red 5px;
+}
+
+ul.todo-list li.changed {
+  animation: fadeIn 2s ease 0s 1 normal;
 }
 
 ul.todo-list li div {

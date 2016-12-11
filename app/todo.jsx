@@ -17,7 +17,8 @@ const Action = require("./action");
       super(prop)
       this.state = {
         newTodo: '',
-        todos: this._loadAllTodo()
+        todos: this._loadAllTodo(),
+        changed: ''
       }
     }
 
@@ -51,6 +52,7 @@ const Action = require("./action");
 
     onReorder(id,newOrder){
       Action.reorderTodo(id,newOrder);
+      this.state.changed = id;
     }
 
     onRemove(id){
@@ -69,7 +71,9 @@ const Action = require("./action");
            return '';
          }
         // keyだとTodoItem側で拾えない…？
+        var isChanged = (v.id == this.state.changed);
         return (<TodoItem key={v.id} id={v.id} index={i} val={v.text} isDone={v.isDone}
+          isChanged={isChanged}
           onReorder={this.onReorder.bind(this)}
           onRemove={this.onRemove.bind(this)}
           onChange={this.onChange.bind(this)}
@@ -77,6 +81,8 @@ const Action = require("./action");
         );
       },this)
       var footer = '';
+      // renderに一度渡したらリセットする
+      this.state.changed == "";
       // return内は1タグで纏めないとダメ
       // 構文的にreturnと同じ行から書き始めるなら()は不要っぽい
       // けど、複数行にまたがるときにインデントが微妙になるので、基本カッコアリかな。

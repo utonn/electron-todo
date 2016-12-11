@@ -95,7 +95,8 @@ const React = require("react");
     }
     render() {
       var dragOver = this.state.dragOver ? " dragOver" : "";
-      var li_class = "list-group-item bs-callout bs-callout-warning" + dragOver;
+      var isChanged = this.props.isChanged ? " changed" : "";
+      var li_class = "list-group-item bs-callout bs-callout-warning" + dragOver + isChanged;
       var text_class = "todo-text" + (this.state.editing ? " editing" : "");
       return (
         <li className={li_class} draggable="true"
