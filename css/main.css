@@ -16,7 +16,7 @@ ul.todo-list li.dragOver {
 }
 
 ul.todo-list li.changed {
-  animation: fadeIn 2s ease 0s 1 normal;
+  animation: fadeIn 1s ease 0s 1 normal;
 }
 
 ul.todo-list li div {

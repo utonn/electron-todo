@@ -10,7 +10,7 @@ ul.todo-list li{
     border-top: solid red 5px;
   }
   &.changed {
-    animation: fadeIn 2s ease 0s 1 normal;
+    animation: fadeIn 1s ease 0s 1 normal;
   }
   div{
     display: inline-block;

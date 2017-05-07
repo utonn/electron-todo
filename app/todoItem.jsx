@@ -106,17 +106,24 @@ const React = require("react");
           onDragLeave={this.handleDragLeave.bind(this)}
           onDrop={this.handleDrop.bind(this)}
           >
-          <div className="todo-order">
+          <div className="todo-check">
             <input type="checkbox"
               checked={this.state.isDone}
               onChange={this.handleDone.bind(this)}
             ></input>
+          </div>
+          <div className="todo-order">
             <input type="text"
               value={this.state.newOrder}
               onKeyDown={this.handleOrderKeyDown.bind(this)}
               onChange={this.handleChange.bind(this)}
               tabIndex={this.props.index+1}
               ></input>
+          </div>
+          <div className="todo-label">
+            <label className={this.props.label}>
+              {this.props.label}
+            </label>
           </div>
           <div className={text_class} onClick={this.handleTextClick.bind(this)}>
             <label>{this.props.val}</label>
